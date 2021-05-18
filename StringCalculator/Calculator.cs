@@ -10,14 +10,14 @@ namespace StringCalculator
                 return 0;
 
             var splitNumbers = numbers.Split(',');
+            var result = 0;
 
-            if (splitNumbers.Length == 1)
-                return int.Parse(splitNumbers[0]);
+            for (int i = 0; i < splitNumbers.Length; i++)
+            {
+                result += int.Parse(splitNumbers[i]);
+            }
 
-            if (splitNumbers.Length == 2)
-                return int.Parse(splitNumbers[0]) + int.Parse(splitNumbers[1]);
-
-            throw new ArgumentException();
+            return result;
         }
     }
 }
