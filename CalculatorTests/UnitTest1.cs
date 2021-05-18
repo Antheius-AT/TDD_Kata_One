@@ -23,5 +23,13 @@ namespace CalculatorTests
 
             Assert.That(expected == result);
         }
+
+        [Test]
+        public void Does_Input_Empty_Result_In_Zero()
+        {
+            var result = Calculator.Add(string.Empty);
+
+            Assert.That(0 == result);
+        }
     }
 }
