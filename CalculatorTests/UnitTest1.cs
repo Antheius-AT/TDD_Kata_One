@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using StringCalculator;
 
 namespace CalculatorTests
 {
@@ -10,9 +11,12 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Test1()
+        [TestCase("1,2")]
+        [TestCase("5,6")]
+        [TestCase("10,20")]
+        public void Does_Numbers_Separated_With_Comma_Return_Add(string input)
         {
-            Assert.Pass();
+            Calculator.Add(input);
         }
     }
 }
