@@ -13,11 +13,19 @@ namespace StringCalculator
 
             string delimiter = ",";
 
-            if (numbers.StartsWith("//"))
+            if (numbers.StartsWith("//["))
+            {
+                delimiter = new string(numbers.Skip(3).TakeWhile(c => c != ']').ToArray());
+                numbers = new string(numbers.Skip(4 + delimiter.Length).ToArray());
+            }
+            else if (numbers.StartsWith("//"))
+            {
                 delimiter = numbers.Replace("//", string.Empty).First().ToString();
+                numbers = new string(numbers.Skip(3).ToArray());
+            }
 
             var splitChars = new string[] { "\n", delimiter };
-            var splitNumbers = numbers.Replace("//", string.Empty).Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
+            var splitNumbers = numbers.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
 
             var result = 0;
             var negatives = new List<int>();
