@@ -106,5 +106,13 @@ namespace CalculatorTests
 
             Assert.That(result == 1);
         }
+
+        [Test]
+        public void Can_Delimiter_Be_More_Than_One_Character()
+        {
+            var result = Calculator.Add("//[+++]\n1+++3+++5");
+
+            Assert.That(result == 1 + 3 + 5);
+        }
     }
 }
