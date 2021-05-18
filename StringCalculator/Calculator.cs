@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace StringCalculator
 {
@@ -9,8 +10,13 @@ namespace StringCalculator
             if (string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
-            var splitChars = new string[] { "\n", "," };
-            var splitNumbers = numbers.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
+            string delimiter = ",";
+
+            if (numbers.StartsWith("//"))
+                delimiter = numbers.Replace("//", string.Empty).First().ToString();
+
+            var splitChars = new string[] { "\n", delimiter };
+            var splitNumbers = numbers.Replace("//", string.Empty).Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
 
             var result = 0;
 
