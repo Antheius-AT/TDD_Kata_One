@@ -16,7 +16,12 @@ namespace CalculatorTests
         [TestCase("10,20")]
         public void Does_Numbers_Separated_With_Comma_Return_Add(string input)
         {
-            Calculator.Add(input);
+            var result = Calculator.Add(input);
+
+            var split = input.Split(",");
+            var expected = int.Parse(split[0]) + int.Parse(split[1]);
+
+            Assert.That(expected == result);
         }
     }
 }
