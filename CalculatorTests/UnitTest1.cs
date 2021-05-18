@@ -98,5 +98,13 @@ namespace CalculatorTests
                 Calculator.Add(input);
             }, "negatives not allowed: -5, -10, 1, -33");
         }
+
+        [Test]
+        public void Does_Add_Ignore_Numbers_Greater_Than_1000()
+        {
+            var result = Calculator.Add("1,1001,1002,1003,2000,3456");
+
+            Assert.That(result == 1);
+        }
     }
 }
