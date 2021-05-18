@@ -31,5 +31,24 @@ namespace CalculatorTests
 
             Assert.That(0 == result);
         }
+
+        [Test]
+        [TestCase("5,6,7,8")]
+        [TestCase("1,2,3")]
+        [TestCase("5,10,20,30,50,60,1,2,3,3,3,3")]
+        public void Does_Add_Method_Work_With_Multiple_Numbers(string input)
+        {
+            var result = Calculator.Add(input);
+
+            var split = input.Split(',');
+            var accumulator = 0;
+
+            foreach (var item in split)
+            {
+                accumulator += int.Parse(item);
+            }
+
+            Assert.That(accumulator == result);
+        }
     }
 }
