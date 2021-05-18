@@ -31,6 +31,9 @@ namespace StringCalculator
                     continue;
                 }
 
+                if (current > 1000)
+                    continue;
+
                 result += int.Parse(splitNumbers[i]);
             }
 
