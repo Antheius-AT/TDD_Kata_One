@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using StringCalculator;
@@ -85,6 +87,16 @@ namespace CalculatorTests
             }
 
             Assert.That(expected == result);
+        }
+
+        [Test]
+        [TestCase("-5,-10,1,-33")]
+        public void Does_Calling_Add_With_Negatives_Throw_Exception_With_Correct_Message(string input)
+        {
+            Assert.Throws(typeof(ArgumentException), () =>
+            {
+                Calculator.Add(input);
+            }, "negatives not allowed: -5, -10, 1, -33");
         }
     }
 }
