@@ -9,7 +9,8 @@ namespace StringCalculator
             if (string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
-            var splitNumbers = numbers.Split('\n');
+            var splitChars = new string[] { "\n", "," };
+            var splitNumbers = numbers.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
 
             var result = 0;
 
