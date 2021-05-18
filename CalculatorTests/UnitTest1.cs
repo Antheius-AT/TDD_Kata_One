@@ -1,3 +1,4 @@
+using System.Linq;
 using NUnit.Framework;
 using StringCalculator;
 
@@ -61,6 +62,27 @@ namespace CalculatorTests
             var split = input.Split('\n');
 
             var expected = int.Parse(split[0]) + int.Parse(split[1]);
+
+            Assert.That(expected == result);
+        }
+
+        [Test]
+        [TestCase("//o\n5o2o3")]
+        [TestCase("//+\n5+3+10")]
+        public void Does_Method_Support_Different_Delimiters(string input)
+        {
+            var result = Calculator.Add(input);
+
+            var splitContainingDelimiter = input.Split('\n');
+            var delimiter = splitContainingDelimiter.First().Last();
+            var numbers = splitContainingDelimiter.Last().Split(delimiter);
+
+            var expected = 0;
+
+            foreach (var item in numbers)
+            {
+                expected += int.Parse(item);
+            }
 
             Assert.That(expected == result);
         }
