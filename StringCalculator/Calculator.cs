@@ -6,7 +6,15 @@ namespace StringCalculator
     {
         public static int Add (string numbers)
         {
-            throw new NotImplementedException();
+            var splitNumbers = numbers.Split(',');
+
+            if (splitNumbers.Length == 1)
+                return int.Parse(splitNumbers[0]);
+
+            if (splitNumbers.Length == 2)
+                return int.Parse(splitNumbers[0]) + int.Parse(splitNumbers[1]);
+
+            throw new ArgumentException();
         }
     }
 }
