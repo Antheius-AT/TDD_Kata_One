@@ -6,6 +6,9 @@ namespace StringCalculator
     {
         public static int Add (string numbers)
         {
+            if (string.IsNullOrWhiteSpace(numbers))
+                return 0;
+
             var splitNumbers = numbers.Split(',');
 
             if (splitNumbers.Length == 1)
