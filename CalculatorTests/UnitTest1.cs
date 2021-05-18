@@ -50,5 +50,19 @@ namespace CalculatorTests
 
             Assert.That(accumulator == result);
         }
+
+        [Test]
+        [TestCase("5\n2")]
+        [TestCase("1\n5")]
+        public void Does_Add_Method_Accept_NewLine_As_Separator(string input)
+        {
+            var result = Calculator.Add(input);
+
+            var split = input.Split('\n');
+
+            var expected = int.Parse(split[0]) + int.Parse(split[1]);
+
+            Assert.That(expected == result);
+        }
     }
 }

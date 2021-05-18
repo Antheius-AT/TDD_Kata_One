@@ -10,6 +10,7 @@ namespace StringCalculator
                 return 0;
 
             var splitNumbers = numbers.Split(',');
+
             var result = 0;
 
             for (int i = 0; i < splitNumbers.Length; i++)
