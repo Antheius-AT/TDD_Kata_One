@@ -7,6 +7,11 @@ namespace StringCalculator
 {
     public static class Calculator
     {
+        /// <summary>
+        /// Takes a string representation of numbers and delimiters and returns the result of the calculation.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static int Add(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -47,6 +52,11 @@ namespace StringCalculator
             return new string[] { delimiterPart, dataPart };
         }
 
+        /// <summary>
+        /// Parses the delimiter part of the input into an array of delimiters.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static string[] ParseDelimiters(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -61,6 +71,11 @@ namespace StringCalculator
             throw new ArgumentException();
         }
 
+        /// <summary>
+        /// Parses delimiters consisting of multiple characters.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static string[] ParseMultiCharDelimiters(string input)
         {
             var preparedInput = new string(input.Skip(2).ToArray());
@@ -76,6 +91,11 @@ namespace StringCalculator
             return parsedDelimiters.ToArray();
         }
 
+        /// <summary>
+        /// Does the calculation based on a string array of numbers as input.
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
         private static int DoCalculation(string[] numbers)
         {
             var result = 0;
