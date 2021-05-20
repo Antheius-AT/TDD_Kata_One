@@ -72,6 +72,7 @@ namespace StringCalculator
                 parsedDelimiters.Add(item.Replace("[", string.Empty).Replace("]", string.Empty));
             }
 
+            parsedDelimiters.Add("\n");
             return parsedDelimiters.ToArray();
         }
 
