@@ -33,11 +33,6 @@ namespace StringCalculator
                 numbers = new string(numbers.SkipWhile(c => c != '\n').ToArray());
             }
 
-            if (numbers.StartsWith("//["))
-            {
-                delimiter = new string(numbers.Skip(3).TakeWhile(c => c != ']').ToArray());
-                numbers = new string(numbers.Skip(4 + delimiter.Length).ToArray());
-            }
             else if (numbers.StartsWith("//"))
             {
                 delimiter = numbers.Replace("//", string.Empty).First().ToString();
