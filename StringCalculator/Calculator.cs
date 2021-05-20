@@ -17,7 +17,7 @@ namespace StringCalculator
 
             if (numbers.StartsWith("//["))
             {
-                var splitDelimiterArray = new string(numbers.Skip(2).TakeWhile(c => c != '\n').ToArray()).Split(' ');
+                var splitDelimiterArray = new string(numbers.Skip(2).TakeWhile(c => c != '\n').ToArray()).Replace("[", string.Empty).Replace("]", string.Empty).Split(' ');
 
                 if (splitDelimiterArray.Length > 1)
                 {
@@ -25,11 +25,13 @@ namespace StringCalculator
 
                     for (int i = 0; i < delimiterArray.Length; i++)
                     {
-                        delimiterArray[i] = splitDelimiterArray[i].Replace("[", string.Empty).Replace("]", string.Empty);
+                        delimiterArray[i] = splitDelimiterArray[i];
                     }
 
                     isMultipleDelimiters = true;
                 }
+                else
+                    delimiterArray = splitDelimiterArray;
 
                 numbers = new string(numbers.SkipWhile(c => c != '\n').ToArray());
             }
@@ -47,7 +49,7 @@ namespace StringCalculator
 
             string[] splitChars;
 
-            if (isMultipleDelimiters)
+            if (delimiterArray != null)
             {
                 splitChars = new string[delimiterArray.Length + 1];
                 splitChars[0] = "\n";
