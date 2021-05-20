@@ -134,5 +134,13 @@ namespace CalculatorTests
 
             Assert.That(anotherResult == 5 + 5 + 10 + 1);
         }
+
+        [Test]
+        public void Can_Add_Method_Take_Multiple_Delimiters_With_Different_Lengths()
+        {
+            var result = Calculator.Add("//[+++] [~~] [----------] [hugo] [X]\n1+++5+++5~~2----------9hugo10");
+
+            Assert.That(result == 1 + 5 + 5 + 2 + 9 + 10);
+        }
     }
 }
