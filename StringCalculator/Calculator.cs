@@ -1,65 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace StringCalculator
 {
     public static class Calculator
     {
-        public static int Add (string numbers)
+        public static int Add(string input)
         {
-            if (string.IsNullOrWhiteSpace(numbers))
+            if (string.IsNullOrWhiteSpace(input))
                 return 0;
 
-            string delimiter = ",";
-            string[] delimiterArray = null;
+            var splitInput = SplitInput(input);
+            var delimiterPart = splitInput[0];
+            var dataPart = splitInput[1];
 
-            if (numbers.StartsWith("//["))
+            var delimiterArray = ParseDelimiters(delimiterPart);
+            var numbers = dataPart.Split(delimiterArray, StringSplitOptions.RemoveEmptyEntries);
+
+            var result = DoCalculation(numbers);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Splits input into delimiter part and data part for easier handling.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private static string[] SplitInput(string input)
+        {
+            var delimiterPart = string.Empty;
+            var dataPart = string.Empty;
+
+            if (input.StartsWith("//"))
             {
-                var splitDelimiterArray = new string(numbers.Skip(2).TakeWhile(c => c != '\n').ToArray()).Replace("[", string.Empty).Replace("]", string.Empty).Split(' ');
-
-                if (splitDelimiterArray.Length > 1)
-                {
-                    delimiterArray = new string[splitDelimiterArray.Length];
-
-                    for (int i = 0; i < delimiterArray.Length; i++)
-                    {
-                        delimiterArray[i] = splitDelimiterArray[i];
-                    }
-                }
-                else
-                    delimiterArray = splitDelimiterArray;
-
-                numbers = new string(numbers.SkipWhile(c => c != '\n').ToArray());
-            }
-
-            else if (numbers.StartsWith("//"))
-            {
-                delimiter = numbers.Replace("//", string.Empty).First().ToString();
-                numbers = new string(numbers.Skip(3).ToArray());
-            }
-
-            string[] splitChars;
-
-            if (delimiterArray != null)
-            {
-                splitChars = new string[delimiterArray.Length + 1];
-                splitChars[0] = "\n";
-                Array.Copy(delimiterArray, 0, splitChars, 1, delimiterArray.Length);
+                delimiterPart = new string(input.TakeWhile(c => c != '\n').ToArray());
+                dataPart = new string(input.Skip(delimiterPart.Length).ToArray());
             }
             else
             {
-                splitChars = new string[] { "\n", delimiter };
+                dataPart = input;
             }
 
-            var splitNumbers = numbers.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
+            return new string[] { delimiterPart, dataPart };
+        }
 
+        private static string[] ParseDelimiters(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return new string[] { ",", "\n" };
+
+            if (input.StartsWith("//["))
+                return ParseMultiCharDelimiters(input);
+
+            if (input.StartsWith("//"))
+                return new string[] { "\n", input.Replace("//", string.Empty) };
+
+            throw new ArgumentException();
+        }
+
+        private static string[] ParseMultiCharDelimiters(string input)
+        {
+            var preparedInput = new string(input.Skip(2).ToArray());
+            var individualDelimitersArray = preparedInput.Split(' ');
+            var parsedDelimiters = new List<string>();
+
+            foreach (var item in individualDelimitersArray)
+            {
+                parsedDelimiters.Add(item.Replace("[", string.Empty).Replace("]", string.Empty));
+            }
+
+            return parsedDelimiters.ToArray();
+        }
+
+        private static int DoCalculation(string[] numbers)
+        {
             var result = 0;
             var negatives = new List<int>();
 
-            for (int i = 0; i < splitNumbers.Length; i++)
+            for (int i = 0; i < numbers.Length; i++)
             {
-                var current = int.Parse(splitNumbers[i]);
+                var current = int.Parse(numbers[i]);
+
                 if (current < 0)
                 {
                     negatives.Add(current);
@@ -69,7 +93,7 @@ namespace StringCalculator
                 if (current > 1000)
                     continue;
 
-                result += int.Parse(splitNumbers[i]);
+                result += int.Parse(numbers[i]);
             }
 
             if (negatives.Count > 0)
