@@ -13,7 +13,6 @@ namespace StringCalculator
 
             string delimiter = ",";
             string[] delimiterArray = null;
-            bool isMultipleDelimiters = false;
 
             if (numbers.StartsWith("//["))
             {
@@ -27,8 +26,6 @@ namespace StringCalculator
                     {
                         delimiterArray[i] = splitDelimiterArray[i];
                     }
-
-                    isMultipleDelimiters = true;
                 }
                 else
                     delimiterArray = splitDelimiterArray;

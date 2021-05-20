@@ -90,6 +90,14 @@ namespace CalculatorTests
         }
 
         [Test]
+        public void Does_Method_Support_Different_Delimiters_And_NewLine()
+        {
+            var result = Calculator.Add("//o\n5\n6o5o5\n1");
+
+            Assert.That(result == 5 + 6 + 5 + 5 + 1);
+        }
+
+        [Test]
         [TestCase("-5,-10,1,-33")]
         public void Does_Calling_Add_With_Negatives_Throw_Exception_With_Correct_Message(string input)
         {
