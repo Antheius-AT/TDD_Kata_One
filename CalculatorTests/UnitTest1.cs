@@ -121,6 +121,10 @@ namespace CalculatorTests
             var result = Calculator.Add("//[+] [~] [;] [^]\n1+5~5;5;1~8");
 
             Assert.That(result == 1 + 5 + 5 + 5 + 1 + 8);
+
+            var anotherResult = Calculator.Add("//[-] [-] [v] [l] [x]\n5\n5v10x1");
+
+            Assert.That(anotherResult == 5 + 5 + 10 + 1);
         }
     }
 }
